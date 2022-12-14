@@ -2,7 +2,6 @@ import java.util.*;
 import java.lang.*;
 import java.io.*;
 
-/* Name of the class has to be "Main" only if the class is public. */
 class Ideone
 {
 	static long state[] = new long[5];
@@ -13,7 +12,7 @@ class Ideone
 		 long nonce[] = new long[2];
   long key[] = new long[2];
   long IV = 0x80400c0600000000l;
-  long plainText[] = {0x1234567890abcdefl, 0x82187};
+  long plainText[] = {0x1234567890abcdefl, 0x82187l};
   long cipherText[] = new long[10];
   state[0] = IV;
   state[1] = key[0];
@@ -21,11 +20,12 @@ class Ideone
   state[3] = nonce[0];
   state[4] = nonce[1];
   initialization(state, key);
+  
   print(state);
   encrypt(state, 2, plainText, cipherText);
-  System.out.printf("CipherText:", cipherText[0], cipherText[1]);
+  System.out.printf("CipherText: %x %x%n", cipherText[0], cipherText[1]);
   finalization(state, key);
-  System.out.printf("Tag:", state[3], state[4]);
+  System.out.printf("Tag: %x %x%n", state[3], state[4]);
 	}
 	
 	public static void permutation(long state[], int rounds) {
@@ -92,7 +92,7 @@ static void encrypt(long state[], int length, long plainText[], long cipherText[
 
 static void print(long state[]) {
   for(int i = 0; i < 5; ++i) {
-    System.out.printf("state", state[i]);
+    System.out.printf("state %x%n", state[i]);
   }
 }
 static void finalization(long state[], long key[]) {
